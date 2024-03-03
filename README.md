@@ -1,2 +1,2 @@
-# NLCSR-CPDM-master
+# NLCSR-CPDM
 Our codes will be avaliable after the work is published.
