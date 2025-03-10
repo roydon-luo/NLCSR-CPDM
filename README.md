@@ -30,7 +30,8 @@ If you find our work useful and use it for your research, please cite our paper:
   journal={IEEE Transactions on Image Processing},
   volume={33},
   pages={5029--5044},
-  year={2024}
+  year={2024},
+  publisher={IEEE}
 }
 ```
 
