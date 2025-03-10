@@ -1,7 +1,7 @@
 # Learning a Non-Locally Regularized Covolutional Sparse Representation for Joint Chromatic and Polarimetric Demosaicking
 (2025-3-10) Our codes are released!
 ## 1.Testing
-For demosaicking of real images captured by DoFP camera, please put data in:
+For demosaicking of real images captured by DoFP camera, please put mosaic data in:
 ```
 'data/real/'
 ```
@@ -9,8 +9,7 @@ and run:
 ```bash
 demo_real.m
 ```
-##
-For demosaicking of ground truth captured by DoTP camera, please put data in:
+For demosaicking of ground truth captured by DoTP camera, please put full-resolution data (0°,45°,90°,135°) in:
 ```
 'data/synthetic/your_selected_image/'
 ```
