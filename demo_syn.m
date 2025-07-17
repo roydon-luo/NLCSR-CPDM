@@ -41,20 +41,20 @@ dataset_name = 'Monno'; % others: Qiu, Wen
 imagedir = dir(fullfile('data', 'synthetic', dataset_name));
 imagedir = imagedir(3:end,:);
 
-for nn = 2
+for nn = 1
     image_name = imagedir(nn).name;
     im0   = im2double(imread(fullfile('data', 'synthetic', dataset_name, image_name ,'0.png')));
     im45  = im2double(imread(fullfile('data', 'synthetic', dataset_name, image_name ,'45.png')));
     im90  = im2double(imread(fullfile('data', 'synthetic', dataset_name, image_name ,'90.png')));
     im135 = im2double(imread(fullfile('data', 'synthetic', dataset_name, image_name ,'135.png')));
     S_ori = cat(3,im0,im45,im90,im135);
-    S_ori = S_ori(301:516,301:516,:); % for quicker test
+    S_ori = S_ori(301:516,401:616,:); % for quicker test
     Mask = get_cpdmask(size(S_ori,1),size(S_ori,2),'rggb');
     CPFA = sum(S_ori.*Mask,3);
     [S_ini,Mask] = init_interp(CPFA);
     para = para_set(S_ini);
     para.Smask = CPFA.*Mask;
-    para.C = 0.001;
+    para.C = 0.01;
     para.C_min = 1e-5; % lower than in processing real-world image due to it has fewer noises
 
     %% main iteration
@@ -99,23 +99,23 @@ for nn = 2
     subplot(1,3,2);imshow(iniS0,[]);title('initial S0');
     subplot(1,3,3);imshow(imOutS0,[]);title('output S0');
     figure,
-    subplot(1,3,1);imshow(imDoLP_str,[]);title('GT');
-    subplot(1,3,2);imshow(iniDoLP_str,[]);title('initial DoLP');
-    subplot(1,3,3);imshow(imOutDoLP_str,[]);title('output DoLP');
+    subplot(1,3,1);imshow(colorjetmap(imDoLP_str),[]);title('GT');
+    subplot(1,3,2);imshow(colorjetmap(iniDoLP_str),[]);title('initial DoLP');
+    subplot(1,3,3);imshow(colorjetmap(imOutDoLP_str),[]);title('output DoLP');
     figure,
-    subplot(1,3,1);imshow(imAoLP,[]);title('GT');
-    subplot(1,3,2);imshow(iniAoLP,[]);title('initial AoLP');
-    subplot(1,3,3);imshow(imOutAoLP,[]);title('output AoLP');
+    subplot(1,3,1);imshow(colorjetmap((imAoLP+pi/2)/pi),[]);title('GT');
+    subplot(1,3,2);imshow(colorjetmap((iniAoLP+pi/2)/pi),[]);title('initial AoLP');
+    subplot(1,3,3);imshow(colorjetmap((imOutAoLP+pi/2)/pi),[]);title('output AoLP');
 
     %% measurement
     res_ini_S = cal_RMSE_PSNR_SSIM(S_ini, S_ori, 5, 5, 1);
     res_ini_S0 = cal_RMSE_PSNR_SSIM(iniS0, imS0, 5, 5, 1);
     res_ini_DoLP = cal_RMSE_PSNR_SSIM(iniDoLP, imDoLP, 5, 5, 1);
-    res_ini_AoLP = cal_RMSE_PSNR_SSIM(iniAoLP, imAoLP, 5, 5, 1);
+    res_ini_AoLP = cal_mae(iniAoLP, imAoLP);
     res_S = cal_RMSE_PSNR_SSIM(S_rec, S_ori, 5, 5, 1);
     res_S0 = cal_RMSE_PSNR_SSIM(imOutS0, imS0, 5, 5, 1);
     res_DoLP = cal_RMSE_PSNR_SSIM(imOutDoLP, imDoLP, 5, 5, 1);
-    res_AoLP = cal_RMSE_PSNR_SSIM(imOutAoLP, imAoLP, 5, 5, 1);
+    res_AoLP = cal_mae(imOutAoLP, imAoLP);
     
     %% saving
     if saveornot == 1

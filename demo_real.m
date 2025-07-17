@@ -76,19 +76,19 @@ for nn = 1
     end
  
     %% visualization
-    [imS0,imDoLP,imAoLP] = cal_Stokes(S_ini);
+    [iniS0,iniDoLP,iniAoLP] = cal_Stokes(S_ini);
     [imOutS0,imOutDoLP,imOutAoLP] = cal_Stokes(S_rec);
-    imDoLP_str = contrast_str(imDoLP,0.3);
+    iniDoLP_str = contrast_str(iniDoLP,0.3);
     imOutDoLP_str = contrast_str(imOutDoLP,0.3);
     figure,
-    subplot(1,2,1);imshow(imS0,[]);title('initial S0');
+    subplot(1,2,1);imshow(iniS0,[]);title('initial S0');
     subplot(1,2,2);imshow(imOutS0,[]);title('output S0');
     figure,
-    subplot(1,2,1);imshow(imDoLP_str,[]);title('initial DoLP');
-    subplot(1,2,2);imshow(imOutDoLP_str,[]);title('output DoLP');
+    subplot(1,2,1);imshow(colorjetmap(iniDoLP_str),[]);title('initial DoLP');
+    subplot(1,2,2);imshow(colorjetmap(imOutDoLP_str),[]);title('output DoLP');
     figure,
-    subplot(1,2,1);imshow(imAoLP,[]);title('initial AoLP');
-    subplot(1,2,2);imshow(imOutAoLP,[]);title('output AoLP');
+    subplot(1,2,1);imshow(colorjetmap((iniAoLP+pi/2)/pi),[]);title('initial AoLP');
+    subplot(1,2,2);imshow(colorjetmap((imOutAoLP+pi/2)/pi),[]);title('output AoLP');
     
     %% saving
     if saveornot == 1
