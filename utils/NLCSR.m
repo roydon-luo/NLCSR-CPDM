@@ -126,7 +126,9 @@ if gpu_num > 0
     DX = gather(reshape(sum(DX,4),f,f,ch,size(DX,5)));
     D = gather(reshape(D(1:m,1:m,:),[m,m,K]));
 else
-    DX = ifft2(fft2(D,f,f).*fft2(X),'symmetric'); 
+    DX = ifft2(fft2(D,f,f).*fft2(X),'symmetric');
+    DX = reshape(sum(DX,4),f,f,ch,size(DX,5));
+    D = reshape(D(1:m,1:m,:),[m,m,K]);
 end
 end
 
