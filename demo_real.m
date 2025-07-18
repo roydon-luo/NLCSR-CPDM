@@ -97,10 +97,10 @@ for nn = 1
         if ~exist(file_name,'dir')
             mkdir(file_name)
         end
-        imwrite(imOut90,sprintf([file_name '/' save_name '_90.png']));
-        imwrite(imOut45,sprintf([file_name '/' save_name '_45.png']));
-        imwrite(imOut135,sprintf([file_name '/' save_name '_135.png']));
-        imwrite(imOut0,sprintf([file_name '/' save_name '_0.png']));
+        imwrite(S_ori(:,:,7:9),sprintf([file_name '/' save_name '_90.png']));
+        imwrite(S_ori(:,:,4:6),sprintf([file_name '/' save_name '_45.png']));
+        imwrite(S_ori(:,:,10:12),sprintf([file_name '/' save_name '_135.png']));
+        imwrite(S_ori(:,:,1:3),sprintf([file_name '/' save_name '_0.png']));
         imwrite(imOutS0,sprintf([file_name '/' save_name '_S0.png']));
         imwrite(imOutDoLP_str,sprintf([file_name '/' save_name '_DoLP.png']));
         imwrite(imOutAoLP,sprintf([file_name '/' save_name '_AoLP.png']));
