@@ -34,7 +34,7 @@ addpath utils
 addpath utils\functions
 dbstop if error
 
-saveornot = 0;
+saveornot = 1;
 dataset_name = 'real';
 
 %% load images
@@ -43,7 +43,7 @@ imagedir = dir(fullfile('data', dataset_name, '*.png'));
 for nn = 1
     image_name = imagedir(nn).name;
     CPFA = load_cpfa(fullfile('data', dataset_name, image_name));
-    CPFA = CPFA(301:516,301:516); % for quicker test
+    % CPFA = CPFA(301:516,301:516); % for quicker test
     [S_ini,Mask] = init_interp(CPFA);
     para = para_set(S_ini);
     para.Smask = CPFA.*Mask;
@@ -97,12 +97,12 @@ for nn = 1
         if ~exist(file_name,'dir')
             mkdir(file_name)
         end
-        imwrite(S_ori(:,:,7:9),sprintf([file_name '/' save_name '_90.png']));
-        imwrite(S_ori(:,:,4:6),sprintf([file_name '/' save_name '_45.png']));
-        imwrite(S_ori(:,:,10:12),sprintf([file_name '/' save_name '_135.png']));
-        imwrite(S_ori(:,:,1:3),sprintf([file_name '/' save_name '_0.png']));
+        imwrite(S_rec(:,:,7:9),sprintf([file_name '/' save_name '_90.png']));
+        imwrite(S_rec(:,:,4:6),sprintf([file_name '/' save_name '_45.png']));
+        imwrite(S_rec(:,:,10:12),sprintf([file_name '/' save_name '_135.png']));
+        imwrite(S_rec(:,:,1:3),sprintf([file_name '/' save_name '_0.png']));
         imwrite(imOutS0,sprintf([file_name '/' save_name '_S0.png']));
-        imwrite(imOutDoLP_str,sprintf([file_name '/' save_name '_DoLP.png']));
-        imwrite(imOutAoLP,sprintf([file_name '/' save_name '_AoLP.png']));
+        imwrite(colorjetmap(imOutDoLP_str),sprintf([file_name '/' save_name '_DoLP.png']));
+        imwrite(colorjetmap((imOutAoLP+pi/2)/pi),sprintf([file_name '/' save_name '_AoLP.png']));
     end
 end
