@@ -9,6 +9,11 @@ This repository contains the implementation of **Learning a Non-Locally Regulari
 
 Choose one implementation and follow its README.  Each implementation includes its own source code and example inputs, so it can be run independently from its directory.
 
+## Release history
+
+- **2025-03-10** — Original MATLAB implementation released.
+- **2026-09-21** — Python implementation released publicly.
+
 ## Citation
 
 If you use this code in your research, please cite:
